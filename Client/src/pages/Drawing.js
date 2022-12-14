@@ -2,51 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CanvasDraw from "react-canvas-draw";
 import { GithubPicker } from "react-color";
-// import "./styles.css";
+import "./styles.css";
 import { useClickAway } from "../components/useClickAway";
 import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
+import { colors, defaultProps } from "../utils/DrawingUtils";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
-
-const defaultProps = {
-  loadTimeOffset: 5,
-  lazyRadius: 0,
-  brushRadius: 2,
-  catenaryColor: "#0a0302",
-  gridColor: "rgba(150,150,150,0.17)",
-  hideGrid: true,
-  canvasWidth: 400,
-  canvasHeight: 400,
-  disabled: false,
-  imgSrc: "",
-  saveData: "",
-  immediateLoading: false,
-  hideInterface: false,
-};
-
-const colors = [
-  "#B80000",
-  "#DB3E00",
-  "#FCCB00",
-  "#008B02",
-  "#006B76",
-  "#1273DE",
-  "#004DCF",
-  "#5300EB",
-  "#000000",
-  "#EB9694",
-  "#FAD0C3",
-  "#FEF3BD",
-  "#C1E1C5",
-  "#BEDADC",
-  "#C4DEF6",
-  "#BED3F3",
-  "#D4C4FB",
-  "#CCCCCC",
-];
 
 const width = `${Math.ceil(colors.length / 2) * 32}px`;
 
@@ -58,10 +22,9 @@ export default function Drawing() {
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
   const [active, setActive] = useState(sessionStorage.getItem("player1"));
-  const [waiting, setWaiting] = useState(false);
+  const [pointSum, setPointSum] = useState();
   const word = localStorage.getItem("word");
-
-  // console.log("active:" + active);
+  const points = localStorage.getItem("points");
 
   const getImg = () =>
     canvasRef.current.canvasContainer.children[1].toDataURL();
@@ -72,7 +35,7 @@ export default function Drawing() {
 
   const handleClear = () => {
     canvasRef.current.clear();
-    setSaveData("");
+    setSaveData("a");
   };
 
   const handleCanvasChange = () => {
@@ -83,19 +46,23 @@ export default function Drawing() {
 
   const handleOnClick = () => {
     sendMessage();
-    sessionStorage.setItem("player1", false);
+    window.sessionStorage.removeItem("player1");
     setActive(sessionStorage.getItem("player1"));
     setSaveData("");
   };
 
   const handleTextChange = (event) => {
     console.log(word);
-    console.log(event.target.value);
     if (word === event.target.value) {
-      alert("correct!!!");
-      navigate("/WordChosing");
+      setPointSum(points + pointSum);
       sessionStorage.setItem("player1", true);
+      localStorage.setItem("player1", pointSum);
+      console.log("points are:" + points);
+      console.log("pointSum are:" + pointSum);
+      alert("correct!!!");
       setActive(sessionStorage.getItem("player1"));
+
+      navigate("/WordChosing");
     }
   };
 
@@ -114,19 +81,14 @@ export default function Drawing() {
 
   useEffect(() => {
     socket.on("receive_draw", (data) => {
-      console.log(data.draw);
-      console.log(saveData);
       setSaveData(data.draw);
-      console.log("ACTIVE USE EFFECT" + active);
-      setActive(sessionStorage.getItem("player1"));
     });
   }, [socket]);
-
   return (
     <div>
       {saveData ? (
         <div className="App">
-          {active ? (
+          {sessionStorage.getItem("player1") ? (
             <>
               {" "}
               <h1>Draw the word!</h1>

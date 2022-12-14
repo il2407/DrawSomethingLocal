@@ -2,10 +2,12 @@ import NaviButton from "../components/NaviButton";
 import Typography from "@mui/material/Typography";
 import BestScore from "../components/BestScore";
 import { useEffect } from "react";
+import Stopwatch from "../components/StopWatch";
 
 export function Welcome() {
   useEffect(() => {
     sessionStorage.setItem("player1", true);
+    localStorage.setItem("turn", true);
     console.log(sessionStorage.getItem("player1"));
   }, []);
 
@@ -27,6 +29,7 @@ export function Welcome() {
         {" "}
         <NaviButton name="New Game" path="WordChosing"></NaviButton>
         <BestScore></BestScore>
+        <Stopwatch />
       </div>
     </div>
   );

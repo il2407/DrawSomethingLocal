@@ -6,13 +6,15 @@ import { useEffect, useState } from "react";
 // Path to navigate to
 // Type of the button
 
-function NaviButton({ name, path, type }) {
+function NaviButton({ name, path, points }) {
   let navigate = useNavigate();
   const [currPath, setCurrPath] = useState(`/${path}`);
 
   const handleOnClick = () => {
     navigate(currPath);
     localStorage.setItem("word", name);
+    localStorage.setItem("points", points);
+    localStorage.setItem("time");
   };
 
   return (
@@ -21,7 +23,6 @@ function NaviButton({ name, path, type }) {
         color="success"
         variant="extended"
         onClick={handleOnClick}
-        type={type}
         sx={{ textTransform: "none" }}
       >
         {name}{" "}

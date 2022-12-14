@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
   console.log("User Connected: ", socket.id);
 
   socket.on("send_draw", (data) => {
-    console.log(data);
+    // console.log(data);
     socket.broadcast.emit("receive_draw", data);
   });
 });
