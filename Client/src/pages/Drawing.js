@@ -21,7 +21,6 @@ export default function Drawing() {
   const [brushColor, setBrushColor] = useState("#000000");
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
-  const [active, setActive] = useState(sessionStorage.getItem("player1"));
   const [pointSum, setPointSum] = useState();
   const word = localStorage.getItem("word");
   const points = localStorage.getItem("points");
@@ -47,7 +46,6 @@ export default function Drawing() {
   const handleOnClick = () => {
     sendMessage();
     window.sessionStorage.removeItem("player1");
-    setActive(sessionStorage.getItem("player1"));
     setSaveData("");
   };
 
@@ -57,10 +55,7 @@ export default function Drawing() {
       setPointSum(points + pointSum);
       sessionStorage.setItem("player1", true);
       localStorage.setItem("player1", pointSum);
-      console.log("points are:" + points);
-      console.log("pointSum are:" + pointSum);
       alert("correct!!!");
-      setActive(sessionStorage.getItem("player1"));
 
       navigate("/WordChosing");
     }
@@ -84,6 +79,7 @@ export default function Drawing() {
       setSaveData(data.draw);
     });
   }, [socket]);
+
   return (
     <div>
       {saveData ? (
@@ -156,7 +152,7 @@ export default function Drawing() {
           )}
         </div>
       ) : (
-        <>waiting</>
+        <h1>Waiting View</h1>
       )}
     </div>
   );
