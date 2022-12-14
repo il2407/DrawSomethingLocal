@@ -8,9 +8,11 @@ import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { colors, defaultProps } from "../utils/DrawingUtils";
+import Stopwatch from "../components/StopWatch";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
+const pointSum = 0;
 
 const width = `${Math.ceil(colors.length / 2) * 32}px`;
 
@@ -21,9 +23,10 @@ export default function Drawing() {
   const [brushColor, setBrushColor] = useState("#000000");
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
-  const [pointSum, setPointSum] = useState();
+  const [pointSum, setPointSum] = useState(localStorage.getItem("pointSum"));
+  const [time, setTime] = useState(localStorage.getItem("pointSum"));
   const word = localStorage.getItem("word");
-  const points = localStorage.getItem("points");
+  const points = parseInt(localStorage.getItem("points"));
 
   const getImg = () =>
     canvasRef.current.canvasContainer.children[1].toDataURL();
@@ -52,9 +55,16 @@ export default function Drawing() {
   const handleTextChange = (event) => {
     console.log(word);
     if (word === event.target.value) {
-      setPointSum(points + pointSum);
       sessionStorage.setItem("player1", true);
-      localStorage.setItem("player1", pointSum);
+      var score = localStorage.getItem("pointsSum");
+      var score1 = parseInt(score);
+      var scoreSum = score1 + points;
+      localStorage.setItem("pointsSum", scoreSum);
+      localStorage.setItem("time", time);
+      console.log("poinstsum:" + localStorage.getItem("pointsSum"));
+      console.log("poinsts:" + points);
+      console.log("poinstsumstate2:" + scoreSum);
+
       alert("correct!!!");
 
       navigate("/WordChosing");
@@ -79,6 +89,11 @@ export default function Drawing() {
       setSaveData(data.draw);
     });
   }, [socket]);
+
+  useEffect(() => {
+    setPointSum(localStorage.getItem("pointsSum"));
+    setTime(performance.now());
+  }, []);
 
   return (
     <div>

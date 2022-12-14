@@ -11,10 +11,9 @@ function NaviButton({ name, path, points }) {
   const [currPath, setCurrPath] = useState(`/${path}`);
 
   const handleOnClick = () => {
-    navigate(currPath);
     localStorage.setItem("word", name);
     localStorage.setItem("points", points);
-    localStorage.setItem("time");
+    navigate(currPath);
   };
 
   return (

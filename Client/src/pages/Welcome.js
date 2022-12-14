@@ -7,7 +7,7 @@ import Stopwatch from "../components/StopWatch";
 export function Welcome() {
   useEffect(() => {
     sessionStorage.setItem("player1", true);
-    localStorage.setItem("turn", true);
+    localStorage.setItem("pointsSum", 0);
     console.log(sessionStorage.getItem("player1"));
   }, []);
 
