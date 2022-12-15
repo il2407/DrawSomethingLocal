@@ -1,0 +1,71 @@
+/* :root {
+    background: rgb(143, 208, 149);
+    font-size: 16px;
+    font-family: monospace;
+  } */
+  
+  /* .App {
+    margin: 2em auto;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
+  
+  .picker-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .picker-container button {
+    width: 100%;
+  }
+  
+  .picker-container .picker-popper {
+    position: absolute;
+    z-index: 2;
+    padding-top: 4px;
+  }
+  
+  .picker-popper div.github-picker {
+    background: black;
+    border-radius: 0 !important;
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+    background: #fffffe !important;
+    box-shadow: 8px 8px #995 !important;
+  }
+  
+  .github-picker > span > div {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 1px;
+  }
+  
+  .canvas:not(.disabled) {
+    border: 1px solid #ddd;
+    cursor: none;
+    box-shadow: 4px 4px #995;
+    margin: 6px 4px 6px 0;
+    
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+    
+  }
+
+  @keyframes rotatee {
+    from{transform:rotateY(0deg)}
+  
+      to {transform:rotateY(360deg)}
+    
+  }
+  
+  .toto > span {
+      animation: rotatee 3s linear infinite;
+    display:inline-block;
+  }
+  
+
+

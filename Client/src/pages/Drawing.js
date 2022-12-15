@@ -2,12 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CanvasDraw from "react-canvas-draw";
 import { GithubPicker } from "react-color";
-import "./styles.css";
-import { useClickAway } from "../components/useClickAway";
+import "./drawingStyle.css";
+import { useClickAway } from "../components/content/useClickAway";
 import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { colors, defaultProps } from "../utils/DrawingUtils";
+import { ContentWrap } from "../components/content/contentStyles";
+
+import { Button, Input, ButtonGroup, Box } from "@mui/material";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
@@ -87,27 +90,57 @@ export default function Drawing() {
   }, [socket]);
 
   return (
-    <div>
-      {saveData ? (
-        <div className="App">
-          {sessionStorage.getItem("player1") ? (
-            <>
-              {" "}
-              <h1>Draw the word!</h1>
-              <CanvasDraw {...props} />
-              <div className="button-container">
+    <ContentWrap>
+      <Box className="boxWrap">
+        {saveData ? (
+          <Box className="boxWrap">
+            {sessionStorage.getItem("player1") ? (
+              <>
+                <h1>Draw the word!</h1>
+                <CanvasDraw {...props} />
+
                 <div ref={paletteRef} className="picker-container">
-                  <button
-                    className="palette"
-                    onClick={() => {
-                      setShowColor((s) => !s);
-                    }}
+                  <ButtonGroup
+                    className="boxWrap"
+                    disableElevation
+                    variant="contained"
+                    aria-label="Disabled elevation buttons"
+                    color="success"
                   >
-                    <span role="img" aria-label="">
-                      🎨
-                    </span>{" "}
-                    color
-                  </button>
+                    <Button
+                      onClick={() => {
+                        setShowColor((s) => !s);
+                      }}
+                    >
+                      <span role="img" aria-label="">
+                        🎨
+                      </span>{" "}
+                      color
+                    </Button>
+
+                    <Button
+                      onClick={() => {
+                        canvasRef.current.undo();
+                      }}
+                    >
+                      <span role="img" aria-label="">
+                        ↩️
+                      </span>{" "}
+                      undo
+                    </Button>
+                    <Button onClick={handleClear}>
+                      <span role="img" aria-label="">
+                        💣
+                      </span>{" "}
+                      clear
+                    </Button>
+                    <Button onClick={handleOnClick}>
+                      <span role="img" aria-label="">
+                        🚀
+                      </span>{" "}
+                      Send
+                    </Button>
+                  </ButtonGroup>
                   {showColor && (
                     <div className="picker-popper">
                       <GithubPicker
@@ -120,46 +153,27 @@ export default function Drawing() {
                     </div>
                   )}
                 </div>
-                <button
-                  className="undo"
-                  onClick={() => {
-                    canvasRef.current.undo();
-                  }}
-                >
-                  <span role="img" aria-label="">
-                    ↩️
-                  </span>{" "}
-                  undo
-                </button>
-                <button className="clear" onClick={handleClear}>
-                  <span className="non-hover" role="img" aria-label="">
-                    💣
-                  </span>{" "}
-                  <span className="hover" role="img" aria-label="">
-                    🧨
-                  </span>{" "}
-                  clear
-                </button>
-                <button className="clear" onClick={handleOnClick}>
-                  Send
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <h1>Guess the word!</h1>
-              <img src={saveData} alt="" />
-              <input
-                type="text"
-                placeholder="Guess the word"
-                onChange={handleTextChange}
-              />
-            </>
-          )}
-        </div>
-      ) : (
-        <h1>Waiting View</h1>
-      )}
-    </div>
+              </>
+            ) : (
+              <>
+                <h1>Guess the word!</h1>
+                <img src={saveData} alt="" />
+                <Input
+                  type="text"
+                  placeholder="Guess the word"
+                  onChange={handleTextChange}
+                />
+              </>
+            )}
+          </Box>
+        ) : (
+          <Box className="boxWrap">
+            <span class="toto">
+              <span>Please Wait!</span>
+            </span>
+          </Box>
+        )}
+      </Box>
+    </ContentWrap>
   );
 }

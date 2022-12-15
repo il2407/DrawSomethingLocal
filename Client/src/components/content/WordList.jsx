@@ -1,6 +1,7 @@
 import NaviButton from "./NaviButton";
 import { List } from "@mui/material";
-import { useState } from "react";
+import Box from "@mui/material/Box";
+
 var randomWords = require("random-words");
 
 // Custom component that gets:
@@ -17,16 +18,18 @@ function WordList(props) {
   const hardWord = randomWords({ exactly: 1 });
 
   return (
-    <List>
-      <ul className="list-items">
-        <h4>Choose Word </h4>
-        <NaviButton name={easyWord} path="Drawing" points={1}></NaviButton>
-        <NaviButton name={mediumWord} path="Drawing" points={3}></NaviButton>
-        <NaviButton name={hardWord} path="Drawing" points={5}></NaviButton>
-        <br></br>
-        <NaviButton name="End Game" path="end-game"></NaviButton>
-      </ul>
-    </List>
+    <Box component="div" sx={{ display: "inline" }}>
+      <List>
+        <ul className="list-items">
+          <h3>Choose Word </h3>
+          <NaviButton name={easyWord} path="Drawing" points={1}></NaviButton>
+          <NaviButton name={mediumWord} path="Drawing" points={3}></NaviButton>
+          <NaviButton name={hardWord} path="Drawing" points={5}></NaviButton>
+          <br></br>
+          <NaviButton name="End Game" path="end-game"></NaviButton>
+        </ul>
+      </List>
+    </Box>
   );
 }
 

@@ -23,7 +23,7 @@ function NaviButton(props) {
 
   return (
     <>
-      <Fab
+      <Fab 
         color="success"
         variant="extended"
         onClick={handleOnClick}

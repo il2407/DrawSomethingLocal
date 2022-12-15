@@ -1,10 +1,13 @@
 import { Box } from "@mui/material";
-import WordList from "../components/WordList";
+import WordList from "../components/content/WordList";
+import { ContentWrap } from "../components/content/contentStyles";
 
 export function WordChoosing() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <WordList />
-    </Box>
+    <ContentWrap>
+      <Box component="div" sx={{ display: "inline" }}>
+        <WordList />
+      </Box>
+    </ContentWrap>
   );
 }

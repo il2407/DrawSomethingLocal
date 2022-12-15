@@ -7,6 +7,7 @@ const defaultProps = {
   hideGrid: true,
   canvasWidth: 400,
   canvasHeight: 400,
+
   disabled: false,
   imgSrc: "",
   saveData: "",

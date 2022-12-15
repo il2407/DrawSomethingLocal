@@ -1,7 +1,7 @@
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useEffect } from "react";
-import { getAll, createSession, updateSession } from "../utils/EndGame";
-import EndGameBox from "../components/EndGameBox";
+import { getAll, createSession, updateSession } from "../utils/EndGameRequest";
+import EndGameBox from "../components/content/EndGameBox";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 

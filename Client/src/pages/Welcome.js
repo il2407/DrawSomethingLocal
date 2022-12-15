@@ -1,7 +1,7 @@
-import NaviButton from "../components/NaviButton";
-import Typography from "@mui/material/Typography";
-import BestScore from "../components/BestScore";
+import WelcomeBox from "../components/content/WelcomeBox";
 import { useEffect } from "react";
+import { Box } from "@mui/material";
+import { ContentWrap } from "../components/content/contentStyles";
 
 export function Welcome() {
   useEffect(() => {
@@ -10,24 +10,10 @@ export function Welcome() {
   }, []);
 
   return (
-    <div
-    // style={{
-    //   alignItems: "center",
-    //   justifyContent: "center",
-    //   display: "block",
-    //   height: "100vh",
-    //   position: "fixed",
-    //   top: "30%",
-    //   left: "45%",
-    // }}
-    >
-      <Typography variant="h4">Welcome View</Typography>
-      <br></br>
-      <div>
-        {" "}
-        <NaviButton name="New Game" path="WordChoosing"></NaviButton>
-        <BestScore></BestScore>
-      </div>
-    </div>
+    <ContentWrap>
+      <Box>
+        <WelcomeBox />
+      </Box>
+    </ContentWrap>
   );
 }

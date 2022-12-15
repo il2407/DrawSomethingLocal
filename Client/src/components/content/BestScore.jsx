@@ -1,5 +1,5 @@
 import { Card } from "@mui/material";
-import { getAll } from "../utils/EndGame";
+import { getAll } from "../../utils/EndGameRequest";
 import { useEffect, useState } from "react";
 const BASE_URL = process.env.REACT_APP_API_KEY;
 
@@ -20,7 +20,7 @@ function Customer(props) {
 
   return (
     <>
-      <Card>
+      <Card className="cont">
         <>Best Score is : {highScore}</>
         <br></br>
         <>Best time is :{bestTime} Seconds </>
