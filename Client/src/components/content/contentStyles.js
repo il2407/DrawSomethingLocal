@@ -20,8 +20,7 @@ export const ContentWrap = styled.div`
 
   .boxWrap {
     width: 90%;
-
-    ${media.desktop} {
+    justify-content:center ${media.desktop} {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;

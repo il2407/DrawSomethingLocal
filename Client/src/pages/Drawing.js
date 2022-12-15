@@ -168,8 +168,11 @@ export default function Drawing() {
           </Box>
         ) : (
           <Box className="boxWrap">
+            <br></br>
+            <br></br>
+            <br></br>
             <span class="toto">
-              <span>Please Wait!</span>
+              <span>==Wait for your friend to guess and draw!</span>{" "}
             </span>
           </Box>
         )}

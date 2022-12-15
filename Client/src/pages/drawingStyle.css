@@ -51,7 +51,7 @@
   }
   
   .toto > span {
-      animation: rotatee 3s linear infinite;
+      animation: rotatee 10s linear infinite;
     display:inline-block;
     
   }
