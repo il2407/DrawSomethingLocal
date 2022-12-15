@@ -60,12 +60,7 @@ export default function Drawing() {
       var scoreSum = score1 + points;
       localStorage.setItem("pointsSum", scoreSum);
 
-      console.log("poinstsum:" + localStorage.getItem("pointsSum"));
-      console.log("poinsts:" + points);
-      console.log("poinstsumstate2:" + scoreSum);
-
-      alert("correct!!!");
-
+      alert("Correct Word! ==> Now It's your turn!");
       navigate("/WordChoosing");
     }
   };
