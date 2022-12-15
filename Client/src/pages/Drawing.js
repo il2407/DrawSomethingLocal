@@ -24,7 +24,6 @@ export default function Drawing() {
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
   const [pointSum, setPointSum] = useState(localStorage.getItem("pointSum"));
-  const [time, setTime] = useState(localStorage.getItem("pointSum"));
   const word = localStorage.getItem("word");
   const points = parseInt(localStorage.getItem("points"));
 
@@ -60,7 +59,7 @@ export default function Drawing() {
       var score1 = parseInt(score);
       var scoreSum = score1 + points;
       localStorage.setItem("pointsSum", scoreSum);
-      localStorage.setItem("time", time);
+
       console.log("poinstsum:" + localStorage.getItem("pointsSum"));
       console.log("poinsts:" + points);
       console.log("poinstsumstate2:" + scoreSum);
@@ -92,7 +91,6 @@ export default function Drawing() {
 
   useEffect(() => {
     setPointSum(localStorage.getItem("pointsSum"));
-    setTime(performance.now());
   }, []);
 
   return (

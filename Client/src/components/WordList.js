@@ -23,6 +23,8 @@ function WordList(props) {
         <NaviButton name={easyWord} path="Drawing" points={1}></NaviButton>
         <NaviButton name={mediumWord} path="Drawing" points={3}></NaviButton>
         <NaviButton name={hardWord} path="Drawing" points={5}></NaviButton>
+        <br></br>
+        <NaviButton name="End Game" path="end-game"></NaviButton>
       </ul>
     </List>
   );

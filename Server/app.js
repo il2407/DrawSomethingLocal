@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/codeblocks", codeblockRoutes);
 app.use("/user", userRoutes);
-app.use("/session", sessionRoutes);
+app.use("/sessions", sessionRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");

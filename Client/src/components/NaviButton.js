@@ -6,14 +6,19 @@ import { useEffect, useState } from "react";
 // Path to navigate to
 // Type of the button
 
-function NaviButton({ name, path, points }) {
+function NaviButton(props) {
   let navigate = useNavigate();
-  const [currPath, setCurrPath] = useState(`/${path}`);
+  const [currPath, setCurrPath] = useState(`/${props.path}`);
 
   const handleOnClick = () => {
-    localStorage.setItem("word", name);
-    localStorage.setItem("points", points);
-    navigate(currPath);
+    if (props.name === "New Game") {
+      localStorage.setItem("time", performance.now());
+      navigate(currPath);
+    } else {
+      localStorage.setItem("word", props.name);
+      localStorage.setItem("points", props.points);
+      navigate(currPath);
+    }
   };
 
   return (
@@ -24,7 +29,7 @@ function NaviButton({ name, path, points }) {
         onClick={handleOnClick}
         sx={{ textTransform: "none" }}
       >
-        {name}{" "}
+        {props.name}{" "}
       </Fab>
       <br></br>
     </>
