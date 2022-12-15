@@ -1,4 +1,5 @@
 import NaviButton from "./NaviButton";
+import randomWordByLength from "./WordGenerator";
 import { List } from "@mui/material";
 import Box from "@mui/material/Box";
 
@@ -13,9 +14,11 @@ var randomWords = require("random-words");
 // Subject for the headline of the list
 
 function WordList(props) {
-  const easyWord = randomWords({ exactly: 1, maxLength: 3 });
-  const mediumWord = randomWords({ exactly: 1, maxLength: 4 });
-  const hardWord = randomWords({ exactly: 1 });
+
+
+  const easyWord = randomWordByLength (3);
+  const mediumWord = randomWordByLength(4);
+  const hardWord = randomWordByLength(5);
 
   return (
     <Box component="div" sx={{ display: "inline" }}>
