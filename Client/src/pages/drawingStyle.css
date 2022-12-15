@@ -1,16 +1,4 @@
-/* :root {
-    background: rgb(143, 208, 149);
-    font-size: 16px;
-    font-family: monospace;
-  } */
-  
-  /* .App {
-    margin: 2em auto;
-    width: min-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  } */
+
   
   .picker-container {
     position: relative;
@@ -43,9 +31,9 @@
   }
   
   .canvas:not(.disabled) {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(251, 251, 251);
     cursor: none;
-    box-shadow: 4px 4px #995;
+    box-shadow: 4px 4px rgb(240, 240, 240);
     margin: 6px 4px 6px 0;
     
       display: flex;
@@ -65,6 +53,7 @@
   .toto > span {
       animation: rotatee 3s linear infinite;
     display:inline-block;
+    
   }
   
 

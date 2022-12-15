@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const userRoutes = require("./api/routes/users");
 const sessionRoutes = require("./api/routes/sessions");
 
 // DB Connection
@@ -43,7 +42,6 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/user", userRoutes);
 app.use("/sessions", sessionRoutes);
 
 app.use((req, res, next) => {
