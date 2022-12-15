@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const codeblockRoutes = require("./api/routes/codeblocks");
 const userRoutes = require("./api/routes/users");
 const sessionRoutes = require("./api/routes/sessions");
 
@@ -44,7 +43,6 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/codeblocks", codeblockRoutes);
 app.use("/user", userRoutes);
 app.use("/sessions", sessionRoutes);
 

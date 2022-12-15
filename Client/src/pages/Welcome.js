@@ -1,7 +1,7 @@
 import NaviButton from "../components/NaviButton";
 import Typography from "@mui/material/Typography";
 import BestScore from "../components/BestScore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Stopwatch from "../components/StopWatch";
 
 export function Welcome() {
@@ -29,7 +29,6 @@ export function Welcome() {
         {" "}
         <NaviButton name="New Game" path="WordChosing"></NaviButton>
         <BestScore></BestScore>
-        <Stopwatch />
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 require("dotenv").config();
-const checkAuth = require("../middleware/checkAuth");
 
 const sessionsController = require("../controllers/sessions");
 
@@ -10,5 +9,7 @@ const sessionsController = require("../controllers/sessions");
 router.post("/createsession", sessionsController.sessions_add_new_session);
 
 router.get("/", sessionsController.sessions_get_all);
+
+router.put("/:sessionId", sessionsController.session_edit);
 
 module.exports = router;

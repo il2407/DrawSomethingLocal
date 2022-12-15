@@ -61,3 +61,29 @@ exports.sessions_get_all = (req, res, next) => {
       res.status(500).json({ error: err });
     });
 };
+
+exports.session_edit = (req, res, next) => {
+  //   Extracting product id from params;
+  const id = req.params.sessionId;
+  //   Find object by id and update propValues
+  Session.findOneAndUpdate(
+    { score: id },
+    { score: req.body.newScore, time: req.body.newTime }
+  )
+    .exec()
+    .then((result) => {
+      // console.log(result);
+      res.status(200).json({
+        result: result,
+        score: id,
+        request: {
+          type: "PUT",
+          url: "http://localhost:5001/sessions/" + id,
+        },
+      });
+    })
+    .catch((err) => {
+      // console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
