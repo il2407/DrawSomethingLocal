@@ -8,11 +8,9 @@ import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { colors, defaultProps } from "../utils/DrawingUtils";
-import Stopwatch from "../components/StopWatch";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
-const pointSum = 0;
 
 const width = `${Math.ceil(colors.length / 2) * 32}px`;
 
@@ -23,7 +21,6 @@ export default function Drawing() {
   const [brushColor, setBrushColor] = useState("#000000");
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
-  const [pointSum, setPointSum] = useState(localStorage.getItem("pointSum"));
   const word = localStorage.getItem("word");
   const points = parseInt(localStorage.getItem("points"));
 
@@ -66,7 +63,7 @@ export default function Drawing() {
 
       alert("correct!!!");
 
-      navigate("/WordChosing");
+      navigate("/WordChoosing");
     }
   };
 
@@ -88,10 +85,6 @@ export default function Drawing() {
       setSaveData(data.draw);
     });
   }, [socket]);
-
-  useEffect(() => {
-    setPointSum(localStorage.getItem("pointsSum"));
-  }, []);
 
   return (
     <div>
@@ -148,7 +141,7 @@ export default function Drawing() {
                   clear
                 </button>
                 <button className="clear" onClick={handleOnClick}>
-                  Finish
+                  Send
                 </button>
               </div>
             </>

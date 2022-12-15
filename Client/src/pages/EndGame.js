@@ -1,9 +1,8 @@
-import { Box } from "@mui/material";
-import NaviButton from "../components/NaviButton";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useEffect } from "react";
-import axios from "axios";
 import { getAll, createSession, updateSession } from "../utils/EndGame";
+import EndGameBox from "../components/EndGameBox";
+
 const BASE_URL = process.env.REACT_APP_API_KEY;
 
 export function EndGame() {
@@ -14,6 +13,7 @@ export function EndGame() {
   const postData = async () => {
     await createSession(BASE_URL + "/sessions/createsession", score, totalTime);
   };
+
   const putData = async (prevScore, newScore, newTime) => {
     console.log(prevScore, newScore, newTime);
     await updateSession(
@@ -50,18 +50,9 @@ export function EndGame() {
     const updateData = async () => {
       await setTime(totalTime);
     };
-
     updateData();
     updateHighScore();
-    // updateHighScore();
   }, []);
 
-  return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>Your Score is : {score}</Box>
-      <Box sx={{ flexGrow: 1 }}> {`The Game took ${time} seconds`}</Box>
-      <br></br>
-      <NaviButton name="New Game" path=""></NaviButton>
-    </>
-  );
+  return <EndGameBox score={score} time={time}></EndGameBox>;
 }

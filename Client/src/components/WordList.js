@@ -12,9 +12,9 @@ var randomWords = require("random-words");
 // Subject for the headline of the list
 
 function WordList(props) {
-  const easyWord = randomWords({ exactly: 1, maxLength: 3, minLength: 3 });
-  const mediumWord = randomWords({ exactly: 1, maxLength: 4, minLength: 4 });
-  const hardWord = randomWords({ exactly: 1, maxLength: 5, minLength: 5 });
+  const easyWord = randomWords({ exactly: 1, maxLength: 3 });
+  const mediumWord = randomWords({ exactly: 1, maxLength: 4 });
+  const hardWord = randomWords({ exactly: 1 });
 
   return (
     <List>

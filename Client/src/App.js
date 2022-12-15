@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Welcome } from "./pages/Welcome";
-import { WordChosing } from "./pages/WordChosing";
+import { WordChoosing } from "./pages/WordChoosing";
 import Drawing from "./pages/Drawing";
 import { Waiting } from "./pages/Waiting";
 
@@ -14,7 +14,7 @@ export default function App() {
       <Box sx={{ my: 5, justifyContent: "center" }}>
         <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/WordChosing" element={<WordChosing />} />
+          <Route path="/WordChoosing" element={<WordChoosing />} />
           <Route path="/Drawing" element={<Drawing />} />
           <Route path="/Waiting" element={<Waiting />} />
           <Route path="/end-game" element={<EndGame />} />
