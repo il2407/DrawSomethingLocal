@@ -10,10 +10,8 @@ export function Welcome() {
   }, []);
 
   return (
-    <ContentWrap>
-      <Box>
-        <WelcomeBox />
-      </Box>
-    </ContentWrap>
+    <Box>
+      <WelcomeBox />
+    </Box>
   );
 }

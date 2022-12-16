@@ -85,18 +85,20 @@ export default function Drawing() {
   }, [socket]);
 
   return (
-    <ContentWrap>
-      <Box className="boxWrap">
-        {saveData ? (
-          <Box className="boxWrap">
-            {sessionStorage.getItem("player1") ? (
-              <>
+    // <ContentWrap>
+    <Box className="boxWrap">
+      {saveData ? (
+        <Box>
+          {sessionStorage.getItem("player1") ? (
+            <Box className="boxWrap">
+              <Box>
                 <h1>Draw the word!</h1>
+              </Box>
+              <Box>
                 <CanvasDraw {...props} />
 
                 <div ref={paletteRef} className="picker-container">
                   <ButtonGroup
-                    className="boxWrap"
                     disableElevation
                     variant="contained"
                     aria-label="Disabled elevation buttons"
@@ -148,30 +150,30 @@ export default function Drawing() {
                     </div>
                   )}
                 </div>
-              </>
-            ) : (
-              <>
-                <h1>Guess the word!</h1>
-                <img src={saveData} alt="" />
-                <Input
-                  type="text"
-                  placeholder="Guess the word"
-                  onChange={handleTextChange}
-                />
-              </>
-            )}
-          </Box>
-        ) : (
-          <Box className="boxWrap">
-            <br></br>
-            <br></br>
-            <br></br>
-            <span class="toto">
-              <span>==Wait for your friend to guess and draw!</span>{" "}
-            </span>
-          </Box>
-        )}
-      </Box>
-    </ContentWrap>
+              </Box>
+            </Box>
+          ) : (
+            <>
+              <h1>Guess the word!</h1>
+              <img src={saveData} alt="" />
+              <Input
+                type="text"
+                placeholder="Guess the word"
+                onChange={handleTextChange}
+              />
+            </>
+          )}
+        </Box>
+      ) : (
+        <Box>
+          <br></br>
+          <br></br>
+          <br></br>
+          <span class="toto">
+            <span>==Wait for your friend to guess and draw!</span>{" "}
+          </span>
+        </Box>
+      )}
+    </Box>
   );
 }

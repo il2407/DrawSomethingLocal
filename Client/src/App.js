@@ -12,13 +12,15 @@ import { AppWrap } from "./AppStyle";
 export default function App() {
   return (
     <AppWrap>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/WordChoosing" element={<WordChoosing />} />
-        <Route path="/Drawing" element={<Drawing />} />
-        <Route path="/end-game" element={<EndGame />} />
-      </Routes>{" "}
+      <>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/WordChoosing" element={<WordChoosing />} />
+          <Route path="/Drawing" element={<Drawing />} />
+          <Route path="/end-game" element={<EndGame />} />
+        </Routes>{" "}
+      </>
     </AppWrap>
   );
 }

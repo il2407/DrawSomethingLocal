@@ -5,7 +5,7 @@ import { ContentWrap } from "../components/content/contentStyles";
 export function WordChoosing() {
   return (
     <ContentWrap>
-      <Box component="div" sx={{ display: "inline" }}>
+      <Box>
         <WordList />
       </Box>
     </ContentWrap>
