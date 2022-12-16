@@ -1,18 +1,23 @@
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { useEffect } from "react";
-import { getAll, createSession, updateSession } from "../utils/EndGameRequest";
+// import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useEffect, useState } from "react";
+import {
+  getSession,
+  createSession,
+  updateSession,
+} from "../utils/EndGameRequest";
+import {
+  getGameData,
+  createGameData,
+  updateGameData,
+} from "../utils/gameDataUtils";
 import EndGameBox from "../components/content/EndGameBox";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 
 export function EndGame() {
-  const [score, setScore] = useLocalStorage("pointsSum", 0);
-  const [time, setTime] = useLocalStorage("time", 0);
-  var totalTime = parseInt((performance.now() - time) / 1000);
-
-  const postData = async () => {
-    await createSession(BASE_URL + "/sessions/createsession", score, totalTime);
-  };
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
+  // var totalTime = parseInt((performance.now() - time) / 1000);
 
   const putData = async (prevScore, newScore, newTime) => {
     console.log(prevScore, newScore, newTime);
@@ -25,22 +30,39 @@ export function EndGame() {
 
   const updateHighScore = async () => {
     //Get the score and time
-    const { data } = await getAll(BASE_URL + "/sessions");
+    const { data } = await getSession(BASE_URL + "/sessions");
+    const { data: curr } = await getGameData(BASE_URL + "/game-data");
+    setScore(curr.gameDatas[0].score);
+    setTime(parseInt((performance.now() - curr.gameDatas[0].time) / 1000));
     //If doesnt exist yet create a new one
-    if (data.count === 0) postData();
+    if (data.count === 0)
+      await createSession(
+        BASE_URL + "/sessions/createsession",
+        curr.gameDatas[0].score,
+        parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+      );
     //If there is a session already check if the current score is better then the high score
     else {
-      if (data.sessions[0].score < score) {
-        putData(data.sessions[0].score, score, totalTime);
-        console.log("updated : higer score");
+      if (data.sessions[0].score < curr.gameDatas[0].score) {
+        putData(
+          data.sessions[0].score,
+          curr.gameDatas[0].score,
+          parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+        );
+        alert("New High Score");
       } else {
-        if (data.sessions[0].score === score) {
-          console.log("before:" + data.sessions[0].time, score, totalTime);
-
-          if (data.sessions[0].time > totalTime) {
-            putData(data.sessions[0].score, score, totalTime);
-            console.log("better time");
-          } else console.log("worse time");
+        if (data.sessions[0].score === curr.gameDatas[0].score) {
+          if (
+            data.sessions[0].time >
+            parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+          ) {
+            putData(
+              data.sessions[0].score,
+              curr.gameDatas[0].score,
+              parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+            );
+            alert("Same high score but better time , Horay!");
+          } else alert("Same high score but worse time , Next Time!");
         } else console.log("lower score");
       }
     }
@@ -48,7 +70,7 @@ export function EndGame() {
 
   useEffect(() => {
     const updateData = async () => {
-      await setTime(totalTime);
+      await setTime(time);
     };
     updateData();
     updateHighScore();

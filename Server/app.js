@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const sessionRoutes = require("./api/routes/sessions");
+const gameDataRoutes = require("./api/routes/gameData");
 
 // DB Connection
 mongoose
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/sessions", sessionRoutes);
+app.use("/game-data", gameDataRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");

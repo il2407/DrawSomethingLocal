@@ -5,9 +5,8 @@ const defaultProps = {
   catenaryColor: "#0a0302",
   gridColor: "rgba(150,150,150,0.17)",
   hideGrid: true,
-  canvasWidth: 400,
+  canvasWidth: 350,
   canvasHeight: 400,
-
   disabled: false,
   imgSrc: "",
   saveData: "",

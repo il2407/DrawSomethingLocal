@@ -8,9 +8,13 @@ import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { colors, defaultProps } from "../utils/DrawingUtils";
-import { ContentWrap } from "../components/content/contentStyles";
 
 import { Button, Input, ButtonGroup, Box } from "@mui/material";
+import {
+  getGameData,
+  createGameData,
+  updateGameData,
+} from "../utils/gameDataUtils";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
@@ -24,8 +28,8 @@ export default function Drawing() {
   const [brushColor, setBrushColor] = useState("#000000");
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
-  const word = localStorage.getItem("word");
-  const points = parseInt(localStorage.getItem("points"));
+  const [word, setWord] = useState("");
+  // const points = parseInt(localStorage.getItem("points"));
 
   const getImg = () =>
     canvasRef.current.canvasContainer.children[1].toDataURL();
@@ -51,18 +55,24 @@ export default function Drawing() {
     setSaveData("");
   };
 
-  const handleTextChange = (event) => {
-    console.log(word);
-    if (word === event.target.value) {
-      sessionStorage.setItem("player1", true);
-      var score = localStorage.getItem("pointsSum");
-      var score1 = parseInt(score);
-      var scoreSum = score1 + points;
-      localStorage.setItem("pointsSum", scoreSum);
+  const handleOnTextClick = async (event) => {
+    const { data } = await getGameData(BASE_URL + "/game-data");
 
-      alert("Correct Word! ==> Now It's your turn!");
+    if (word === data.gameDatas[0].word) {
+      sessionStorage.setItem("player1", true);
+      var score = data.gameDatas[0].score;
+      var scoreSum = score + data.gameDatas[0].points;
+      await updateGameData(
+        BASE_URL + "/game-data/gameData",
+        data.gameDatas[0].word,
+        data.gameDatas[0].points,
+        data.gameDatas[0].time,
+        scoreSum
+      );
+      // localStorage.setItem("pointsSum", scoreSum);
+      alert("Correct Word! ");
       navigate("/WordChoosing");
-    }
+    } else alert("Wrong Word! Keep Trying");
   };
 
   const props = {
@@ -85,7 +95,6 @@ export default function Drawing() {
   }, [socket]);
 
   return (
-    // <ContentWrap>
     <Box className="boxWrap">
       {saveData ? (
         <Box>
@@ -159,8 +168,9 @@ export default function Drawing() {
               <Input
                 type="text"
                 placeholder="Guess the word"
-                onChange={handleTextChange}
+                onInput={(e) => setWord(e.target.value)}
               />
+              <Button onClick={handleOnTextClick}>This Is My Guess</Button>
             </>
           )}
         </Box>

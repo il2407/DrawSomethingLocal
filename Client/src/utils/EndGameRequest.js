@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getAll = (url) => axios.get(url);
+const getSession = (url) => axios.get(url);
 
 const createSession = (url, score, time) =>
   axios.post(url, {
@@ -14,4 +14,4 @@ const updateSession = (url, newScore, newTime) =>
     newTime: newTime,
   });
 
-export { getAll, createSession, updateSession };
+export { getSession, createSession, updateSession };
