@@ -1,13 +1,17 @@
 import React from "react";
-import { HeaderWrap } from "./headerStyles";
 import NaviButton from "../content/NaviButton";
+import Box from "@mui/material/Box";
+import { HeaderWrap } from "./headerStyles";
+import "../content/style.css";
 
 function Header() {
   return (
     <HeaderWrap>
-      <h1>Draw Something 🖌🖌🖌</h1>
-      <NaviButton name="Home Screen" path=""></NaviButton>
-      <span role="img" aria-label=""></span>{" "}
+      <Box className="boxWrap">
+        <h1>Draw Something 🖌🖌</h1>
+        <span role="img" aria-label=""></span>{" "}
+        <NaviButton name="Home Screen" path=""></NaviButton>
+      </Box>
     </HeaderWrap>
   );
 }

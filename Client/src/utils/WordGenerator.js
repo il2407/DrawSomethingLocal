@@ -2016,4 +2016,4 @@ function randomWordByMinLength(minLength) {
   return word;
 }
 
-export default randomWordByLength;
+export  { randomWordByLength, randomWordByRange, randomWordByMinLength };

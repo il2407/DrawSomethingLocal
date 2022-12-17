@@ -1,16 +1,13 @@
-// import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useEffect, useState } from "react";
 import {
   getSession,
   createSession,
   updateSession,
 } from "../utils/EndGameRequest";
-import {
-  getGameData,
-  createGameData,
-  updateGameData,
-} from "../utils/gameDataUtils";
+import { getGameData } from "../utils/gameDataRequest";
 import EndGameBox from "../components/content/EndGameBox";
+import "./style.css";
+import { Box } from "@mui/material";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 
@@ -75,5 +72,9 @@ export function EndGame() {
     updateHighScore();
   }, []);
 
-  return <EndGameBox score={score} time={time}></EndGameBox>;
+  return (
+    <Box className="boxWrap">
+      <EndGameBox score={score} time={time}></EndGameBox>
+    </Box>
+  );
 }

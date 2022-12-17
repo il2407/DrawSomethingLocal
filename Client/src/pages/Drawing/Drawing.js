@@ -2,19 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CanvasDraw from "react-canvas-draw";
 import { GithubPicker } from "react-color";
-import "./drawingStyle.css";
-import { useClickAway } from "../components/content/useClickAway";
+import { useClickAway } from "../../utils/useClickAway";
 import io from "socket.io-client";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import { colors, defaultProps } from "../utils/DrawingUtils";
+import { colors, defaultProps } from "./DrawingUtils";
+import "../style.css";
 
 import { Button, Input, ButtonGroup, Box } from "@mui/material";
-import {
-  getGameData,
-  createGameData,
-  updateGameData,
-} from "../utils/gameDataUtils";
+import { getGameData, updateGameData } from "../../utils/gameDataRequest";
 
 const BASE_URL = process.env.REACT_APP_API_KEY;
 const socket = io.connect(BASE_URL);
@@ -23,13 +19,11 @@ const width = `${Math.ceil(colors.length / 2) * 32}px`;
 
 export default function Drawing() {
   let navigate = useNavigate();
-
   const canvasRef = React.createRef(null);
   const [brushColor, setBrushColor] = useState("#000000");
   const [showColor, setShowColor] = useState(false);
   const [saveData, setSaveData] = useState("a");
   const [word, setWord] = useState("");
-  // const points = parseInt(localStorage.getItem("points"));
 
   const getImg = () =>
     canvasRef.current.canvasContainer.children[1].toDataURL();
@@ -95,72 +89,82 @@ export default function Drawing() {
   }, [socket]);
 
   return (
-    <Box className="boxWrap">
+    <Box>
       {saveData ? (
         <Box>
           {sessionStorage.getItem("player1") ? (
-            <Box className="boxWrap">
-              <Box>
-                <h1>Draw the word!</h1>
-              </Box>
-              <Box>
+            <div className="draw">
+              <Box className="boxWrap">
                 <CanvasDraw {...props} />
+                <Box class>
+                  <div ref={paletteRef} className="picker-container">
+                    <Box className="boxWrap">
+                      <ButtonGroup
+                        disableElevation
+                        variant="contained"
+                        aria-label="Disabled elevation buttons"
+                        color="success"
+                      >
+                        <Button
+                          onClick={() => {
+                            setShowColor((s) => !s);
+                          }}
+                        >
+                          <span role="img" aria-label="">
+                            🎨
+                          </span>{" "}
+                          color
+                        </Button>
 
-                <div ref={paletteRef} className="picker-container">
-                  <ButtonGroup
-                    disableElevation
-                    variant="contained"
-                    aria-label="Disabled elevation buttons"
-                    color="success"
-                  >
-                    <Button
-                      onClick={() => {
-                        setShowColor((s) => !s);
-                      }}
-                    >
-                      <span role="img" aria-label="">
-                        🎨
-                      </span>{" "}
-                      color
-                    </Button>
+                        <Button
+                          onClick={() => {
+                            canvasRef.current.undo();
+                          }}
+                        >
+                          <span role="img" aria-label="">
+                            ↩️
+                          </span>{" "}
+                          undo
+                        </Button>
+                      </ButtonGroup>
+                    </Box>
+                    <Box>
+                      <ButtonGroup
+                        disableElevation
+                        variant="contained"
+                        aria-label="Disabled elevation buttons"
+                        color="success"
+                      >
+                        <Button onClick={handleClear}>
+                          <span role="img" aria-label="">
+                            💣
+                          </span>{" "}
+                          clear
+                        </Button>
+                        <Button onClick={handleOnClick}>
+                          <span role="img" aria-label="">
+                            🚀
+                          </span>{" "}
+                          Send
+                        </Button>
+                      </ButtonGroup>
+                    </Box>
 
-                    <Button
-                      onClick={() => {
-                        canvasRef.current.undo();
-                      }}
-                    >
-                      <span role="img" aria-label="">
-                        ↩️
-                      </span>{" "}
-                      undo
-                    </Button>
-                    <Button onClick={handleClear}>
-                      <span role="img" aria-label="">
-                        💣
-                      </span>{" "}
-                      clear
-                    </Button>
-                    <Button onClick={handleOnClick}>
-                      <span role="img" aria-label="">
-                        🚀
-                      </span>{" "}
-                      Send
-                    </Button>
-                  </ButtonGroup>
-                  {showColor && (
-                    <div className="picker-popper">
-                      <GithubPicker
-                        triangle={"hide"}
-                        color={brushColor}
-                        colors={colors}
-                        width={width}
-                        onChangeComplete={(c) => setBrushColor(c.hex)}
-                      />
-                    </div>
-                  )}
-                </div>
+                    {showColor && (
+                      <div className="picker-popper">
+                        <GithubPicker
+                          triangle={"hide"}
+                          color={brushColor}
+                          colors={colors}
+                          width={width}
+                          onChangeComplete={(c) => setBrushColor(c.hex)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </Box>
               </Box>
-            </Box>
+            </div>
           ) : (
             <>
               <h1>Guess the word!</h1>
@@ -180,7 +184,9 @@ export default function Drawing() {
           <br></br>
           <br></br>
           <span class="toto">
-            <span>Wait for your friend to guess and draw</span>{" "}
+            <span>
+              <h3>Wait for your friend to guess and draw</h3>
+            </span>{" "}
           </span>
         </Box>
       )}

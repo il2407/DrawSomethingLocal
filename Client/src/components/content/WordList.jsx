@@ -1,22 +1,15 @@
 import NaviButton from "./NaviButton";
-import randomWordByLength from "../../utils/WordGenerator";
+import {randomWordByLength,randomWordByMinLength,randomWordByRange} from "../../utils/WordGenerator";
 import Box from "@mui/material/Box";
+import "./style.css";
 
-
-// Custom component that gets:
-// Data of the names of the buttons in the list
-// field of the exact data that you want to be on the button
-// Modal which is a boolean argument to set if it's a modal button or not
-// Path of the button to navigate to
-// ModalData of the names of the modal buttons in the list
-// Subject for the headline of the list
 
 function WordList(props) {
 
 
-  const easyWord = randomWordByLength (3);
+  const easyWord = randomWordByRange (3,4);
   const mediumWord = randomWordByLength(4);
-  const hardWord = randomWordByLength(5);
+  const hardWord = randomWordByMinLength(6);
 
   return (
     <Box  >

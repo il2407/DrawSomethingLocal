@@ -6,7 +6,7 @@ const defaultProps = {
   gridColor: "rgba(150,150,150,0.17)",
   hideGrid: true,
   canvasWidth: 350,
-  canvasHeight: 400,
+  canvasHeight: 300,
   disabled: false,
   imgSrc: "",
   saveData: "",
