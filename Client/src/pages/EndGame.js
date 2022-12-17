@@ -17,7 +17,6 @@ const BASE_URL = process.env.REACT_APP_API_KEY;
 export function EndGame() {
   const [score, setScore] = useState(0);
   const [time, setTime] = useState(0);
-  // var totalTime = parseInt((performance.now() - time) / 1000);
 
   const putData = async (prevScore, newScore, newTime) => {
     console.log(prevScore, newScore, newTime);
@@ -33,13 +32,13 @@ export function EndGame() {
     const { data } = await getSession(BASE_URL + "/sessions");
     const { data: curr } = await getGameData(BASE_URL + "/game-data");
     setScore(curr.gameDatas[0].score);
-    setTime(parseInt((performance.now() - curr.gameDatas[0].time) / 1000));
+    setTime(parseInt((Date.now() - curr.gameDatas[0].time) / 1000));
     //If doesnt exist yet create a new one
     if (data.count === 0)
       await createSession(
         BASE_URL + "/sessions/createsession",
         curr.gameDatas[0].score,
-        parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+        parseInt((Date.now() - curr.gameDatas[0].time) / 1000)
       );
     //If there is a session already check if the current score is better then the high score
     else {
@@ -47,19 +46,19 @@ export function EndGame() {
         putData(
           data.sessions[0].score,
           curr.gameDatas[0].score,
-          parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+          parseInt((Date.now() - curr.gameDatas[0].time) / 1000)
         );
         alert("New High Score");
       } else {
         if (data.sessions[0].score === curr.gameDatas[0].score) {
           if (
             data.sessions[0].time >
-            parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+            parseInt((Date.now() - curr.gameDatas[0].time) / 1000)
           ) {
             putData(
               data.sessions[0].score,
               curr.gameDatas[0].score,
-              parseInt((performance.now() - curr.gameDatas[0].time) / 1000)
+              parseInt((Date.now() - curr.gameDatas[0].time) / 1000)
             );
             alert("Same high score but better time , Horay!");
           } else alert("Same high score but worse time , Next Time!");

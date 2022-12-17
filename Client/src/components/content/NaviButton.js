@@ -14,7 +14,6 @@ import {
 function NaviButton(props) {
   let navigate = useNavigate();
   const [currPath, setCurrPath] = useState(`/${props.path}`);
-  const [isEmpty, setisEmpty] = useState(false);
   const BASE_URL = process.env.REACT_APP_API_KEY;
 
   const postData = async () => {
@@ -27,6 +26,7 @@ function NaviButton(props) {
       0
     );
   };
+
   const updateData = async (time, score) => {
     console.log("updateData");
     if (props.name === "New Game") {
@@ -49,7 +49,7 @@ function NaviButton(props) {
   const newDataManage = async () => {
     const { data } = await getGameData(BASE_URL + "/game-data");
     if (data.count === 0) postData();
-    else updateData(performance.now(), 0);
+    else updateData(Date.now(), 0);
   };
 
   const handleOnClick = () => {
