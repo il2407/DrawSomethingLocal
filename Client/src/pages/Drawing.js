@@ -180,7 +180,7 @@ export default function Drawing() {
           <br></br>
           <br></br>
           <span class="toto">
-            <span>==Wait for your friend to guess and draw!</span>{" "}
+            <span>Wait for your friend to guess and draw</span>{" "}
           </span>
         </Box>
       )}

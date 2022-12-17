@@ -21,7 +21,7 @@ function NaviButton(props) {
     await createGameData(
       BASE_URL + "/game-data/createGameData",
       "",
-      performance.now(),
+      Date.now(),
       0,
       0
     );
@@ -52,8 +52,15 @@ function NaviButton(props) {
     else updateData(Date.now(), 0);
   };
 
+  const joinGameManage = async () => {
+    window.sessionStorage.removeItem("player1");
+  };
+
   const handleOnClick = () => {
+    if (props.name === "Home Screen") navigate(currPath);
+
     if (props.name === "New Game") newDataManage();
+    else if (props.name === "Join Game") joinGameManage();
     else updateData();
     navigate(currPath);
   };
